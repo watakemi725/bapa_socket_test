@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- socketIO いれこむ	 -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- JSをいれこむ -->
+    <script src="/js/main.js"></script>
+
+    <!-- cssをいれこむ -->
+    <link rel="stylesheet" href="css/base.css"/>
+
+    <title>Socket.IO簡易デモ</title>
+
+    
+
+</head>
+<body>
+
+<p>ターミナルとブラウザのコンソールを確認</p>
+
+
+
+
+
+
+
+
+<div>
+
+
+
+
+
+<form name="param" action="#">
+<button class="button2" type="button" value="送信" id="btnON" onclick="OnButtonClick()">SEND</button><br>
+please write what you want to send<br>
+<input type="text" id="num"><br>
+</form>
+<div id="answer"></div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div id="output"  ></div>
+
+
+  <script language="javascript" type="text/javascript">
+//javaをごりごりかいていっていいぞー
+
+
+
+
+
+// サーバーに接続
+var socket = io.connect(location.origin);
+
+
+
+
+//たとえば数字を用意した
+  var number = 0 ;
+
+        function OnButtonClick() {
+        	//数字をカウントアップする
+        	number=number+1;
+
+            // target = document.getElementById("output");
+
+
+
+//ボタンから送るっていう方法
+
+			// var socket = io.connect(location.origin);
+			// サーバーへデータを送信
+			// socket.emit("dataName2", { fuga : "unko"});
+  var x = document.getElementById('num').value;
+  document.getElementById('answer').innerHTML = x;
+  socket.emit("dataName2", { fuga : x});
+  count = 10;
+document.getElementById("btnON").disabled = true; // 表示用ボタンを無効化
+        }
+//
+//タイマーを実装していくぞーー！！	
+//
+
+count = 10; //カウントの初期値
+timerID = setInterval('countup()',1000); //1秒毎にcountup()を呼び出し
+
+function countup() {
+if(count > 0){
+count--; //減算
+// document.form_count.counter.value = count; //代入
+document.getElementById('output').innerHTML = count + '秒間押せません';
+
+document.getElementById("btnON").disabled = true; // 表示用ボタンを無効化
+
+}if(count == 0){
+	document.getElementById('output').innerHTML = '今なら押せるよーー';
+	// count=10;
+	document.getElementById("btnON").disabled = false; // 表示用ボタンを有効化
+}
+
+}
+
+
+    </script>
+
+    <!-- <input type="button" value="Exec" onclick="OnButtonClick();"/> -->
+
+<!-- <FORM NAME="form1">
+ジャンプまで、あと　
+<INPUT TYPE="text" NAME="c_down" SIZE="2" VALUE="5" class=txtstyle> 
+秒</FORM> -->
+
+</div>
+
+</body>
+</html>
